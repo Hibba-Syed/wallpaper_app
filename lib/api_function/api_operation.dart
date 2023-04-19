@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:http/http.dart' as http;
+import 'package:wallpaper_app/api_function/const.dart';
 import 'package:wallpaper_app/model/category_model.dart';
 import 'package:wallpaper_app/model/photos_model.dart';
 class ApiOperations{
@@ -10,7 +11,7 @@ class ApiOperations{
   static Future<List<photosModel>> getTrendingwallpapers()async{
     await http.get(
         Uri.parse("https://api.pexels.com/v1/curated"),
-        headers:{ "Authorization" : "1SmHqHKWP3cDK0PXzfZddD0575ssniYBhfelPEHW7E3mWzKeCkhznVIH"}
+        headers:{ "Authorization" : Constants.apiKey}
     ).then((value){
       Map <String, dynamic> jsonData = jsonDecode(value.body);
       List photos = jsonData['photos'];

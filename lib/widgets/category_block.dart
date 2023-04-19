@@ -3,7 +3,7 @@ import 'package:wallpaper_app/views/category_screen.dart';
 class CategoryBlock extends StatelessWidget {
   String categoryName;
   String categoryImgSrc;
-   CategoryBlock({Key? key,required this.categoryImgSrc,required this.categoryName});
+   CategoryBlock({super.key ,required this.categoryImgSrc,required this.categoryName});
 
   @override
   Widget build(BuildContext context) {

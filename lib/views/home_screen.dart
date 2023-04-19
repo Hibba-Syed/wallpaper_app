@@ -14,13 +14,13 @@ class HomePage extends StatefulWidget {
 }
 class _HomePageState extends State<HomePage> {
  List<photosModel> trendingWallList = [];
- late List<CategoryModel> CatModList;
- GetCatDetails() async {
-   CatModList = await ApiOperations.getCategoriesList();
+  List<CategoryModel> catModList = [];
+ getCatDetails() async {
+   catModList = await ApiOperations.getCategoriesList();
    // print("GETTING CAT MOD LIST");
    // print(CatModList);
    setState(() {
-     CatModList = CatModList;
+     catModList = catModList;
    });
  }
 
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     ApiOperations.getTrendingwallpapers();
     getTrendingWallpapers();
-    GetCatDetails();
+    getCatDetails();
   }
   late double width;
   @override
@@ -61,15 +61,13 @@ class _HomePageState extends State<HomePage> {
                 child: SizedBox(
                   height: 50,
                   width: MediaQuery.of(context).size.width,
-                  child: Expanded(
-                    child: ListView.builder(
-                      itemCount: CatModList.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: ((context, index) =>CategoryBlock(
-                          categoryImgSrc: CatModList[index].catImgUrl,
-                          categoryName: CatModList[index].catName,
-                        )),
-                    ),
+                  child: ListView.builder(
+                    itemCount: catModList.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: ((context, index) =>CategoryBlock(
+                        categoryImgSrc: catModList[index].catImgUrl,
+                        categoryName: catModList[index].catName,
+                      )),
                   ),
                 ),
               ),
@@ -87,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) =>GridTile(
                       child: InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>FullScreen(imgUrl: trendingWallList[index].imgSrc)));
+                          Navigator.push(context, MaterialPageRoute(builder:
+                              (_)=>FullScreen(imgUrl: trendingWallList[index].imgSrc)));
                         },
                         child: Hero(
                           tag: trendingWallList[index].imgSrc,
